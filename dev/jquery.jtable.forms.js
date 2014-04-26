@@ -316,6 +316,25 @@
             return this.options.fields[fieldName].values[value];
         },
 
+        _getLiveCheckBoxTextForFieldByValue: function (fieldName, value) {
+            var self = this;
+
+            var checkbox = $('<input />', {
+                    type: 'checkbox'
+                }).click(function (e) {
+                    var tr = $(checkbox).closest('tr');
+                    var rec = tr.data('record');
+                    rec[fieldName] = checkbox.is(':checked') ? 1 : 0;
+                    self.updateRecord({record: rec});
+                });
+
+            if (value == 1) {
+                checkbox.attr('checked', 'checked');
+            }
+
+            return checkbox;        
+        },
+
         /* Returns true if given field's value must be checked state.
         *************************************************************************/
         _getIsCheckBoxSelectedForFieldByValue: function (fieldName, value) {
@@ -441,7 +460,7 @@
                         this._logDebug('Date is empty for ' + fieldName);
                         record[fieldName] = undefined; //TODO: undefined, null or empty string?
                     }
-                } else if (field.options && field.type == 'radiobutton') {
+                } else if (field.options && ((field.type == 'radiobutton') || (field.type == 'live_checkbox'))) {
                     var $checkedElement = $inputElement.filter(':checked');
                     if ($checkedElement.length) {
                         record[fieldName] = $checkedElement.val();

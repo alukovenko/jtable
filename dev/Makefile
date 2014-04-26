@@ -13,7 +13,8 @@ clean:
 	\rm -f $(JSOUT) $(JSMIN)
 
 js:
-	cat $(JS) | sed 's/^\xEF\xBB\xBF/\r\n/' > $(JSOUT)
+	# cat $(JS) | tail -c +4 > $(JSOUT)
+	cat $(JS) | sed '1 s/\xef\xbb\xbf//' > $(JSOUT)
 
 uglify:
 	$(UGLIFY) $(JSOUT) $(UGLIFYOPTS) --output $(JSMIN)
