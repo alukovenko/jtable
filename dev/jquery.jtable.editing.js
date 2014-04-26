@@ -44,7 +44,7 @@
         _create: function () {
             base._create.apply(this, arguments);
             
-            if (!this.options.actions.updateAction) {
+            if (this.options.actions.updateAction != undefined) {
                 return;
             }
             
@@ -218,7 +218,9 @@
         *************************************************************************/
         _addColumnsToHeaderRow: function ($tr) {
             base._addColumnsToHeaderRow.apply(this, arguments);
-            if (this.options.actions.updateAction != undefined) {
+            if ((this.options.actions.updateAction != undefined)
+                 && (! this.options.hideUpdateButton))
+        {
                 $tr.append(this._createEmptyCommandHeader());
             }
         },
@@ -229,7 +231,9 @@
             var self = this;
             base._addCellsToRowUsingRecord.apply(this, arguments);
 
-            if (self.options.actions.updateAction != undefined) {
+            if ((self.options.actions.updateAction != undefined)
+                && (! this.options.hideUpdateButton)) 
+            {
                 var $span = $('<span></span>').html(self.options.messages.editRecord);
                 var $button = $('<button title="' + self.options.messages.editRecord + '"></button>')
                     .addClass('jtable-command-button jtable-edit-command-button')
