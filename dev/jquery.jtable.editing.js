@@ -44,7 +44,7 @@
         _create: function () {
             base._create.apply(this, arguments);
             
-            if (this.options.actions.updateAction != undefined) {
+            if (!this.options.actions.updateAction) {
                 return;
             }
             

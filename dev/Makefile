@@ -16,5 +16,5 @@ js:
 	cat $(JS) | sed -e 's/\xef\xbb\xbf//' | tr -d '\015' > $(JSOUT)
 
 uglify:
-	$(UGLIFY) $(JSOUT) $(UGLIFYOPTS) --output $(JSMIN)
+	$(UGLIFY) $(JSOUT) $(UGLIFYOPTS) > $(JSMIN)
 
